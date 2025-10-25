@@ -7,4 +7,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 abstract public class Entity {
     private Coordinates coordinates;
+
+    public String getSprite() {
+        return null;
+    }
 }

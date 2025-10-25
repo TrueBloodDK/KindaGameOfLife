@@ -6,10 +6,10 @@ public class MapConsoleRenderer {
         for (int y = 0; y < map.getMAX_Y(); y++) {
             for (int x = 0; x < map.getMAX_X(); x++) {
                 if (map.cellIsEmpty(new Coordinates(x, y))){
-                    System.out.print("_");
+                    System.out.print("__");
                 }
                 else
-                    System.out.print("#");
+                    System.out.print(map.getCells().get(new Coordinates(x, y)).getSprite());
             }
             System.out.println();
         }
