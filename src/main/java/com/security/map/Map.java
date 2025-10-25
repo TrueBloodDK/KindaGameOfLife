@@ -23,4 +23,8 @@ public class Map {
     public boolean cellIsEmpty(Coordinates coordinates){
         return !cells.containsKey(coordinates);
     }
+
+    public Entity getEntity(Coordinates coordinates){
+        return cells.get(coordinates);
+    }
 }
