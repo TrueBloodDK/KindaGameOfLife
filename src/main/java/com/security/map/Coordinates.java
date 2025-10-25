@@ -1,4 +1,4 @@
-package com.security;
+package com.security.map;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

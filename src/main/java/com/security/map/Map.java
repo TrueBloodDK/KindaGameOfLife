@@ -1,23 +1,26 @@
-package com.security;
+package com.security.map;
 
 import com.security.entity.Entity;
 import lombok.Getter;
 
 import java.util.HashMap;
 
+@Getter
 public class Map {
-    @Getter
-    private int MAX_X;
-    @Getter
-    private int MAX_Y;
+    private final int MAX_X;
+    private final int MAX_Y;
     HashMap<Coordinates, Entity> cells = new HashMap<>();
 
-    public void setMaxCoordinates(int x, int y){
-        this.MAX_X = x;
-        this.MAX_Y = y;
+    public Map(int x, int y) {
+        MAX_X = x;
+        MAX_Y = y;
     }
 
     public void putEntity(Entity entity, Coordinates coordinates){
         cells.put(coordinates, entity);
+    }
+
+    public boolean cellIsEmpty(Coordinates coordinates){
+        return !cells.containsKey(coordinates);
     }
 }
