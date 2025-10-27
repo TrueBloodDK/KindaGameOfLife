@@ -8,7 +8,6 @@ import com.security.map.MapConsoleRenderer;
 public class Main {
     public static void main(String[] args) {
         Map map = new Map(15,15);
-        MapConsoleRenderer renderer = new MapConsoleRenderer();
 
         map.putEntity(new Predator(), new Coordinates(1, 2));
         map.putEntity(new Predator(), new Coordinates(9, 13));
@@ -17,7 +16,7 @@ public class Main {
         map.putEntity(new Herbivore(), new Coordinates(10, 11));
         map.putEntity(new Herbivore(), new Coordinates(12, 14));
 
-        renderer.render(map);
+        MapConsoleRenderer.render(map);
 
         int a = 10;
     }

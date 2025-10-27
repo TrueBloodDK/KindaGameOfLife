@@ -17,6 +17,7 @@ public class Map {
     }
 
     public void putEntity(Entity entity, Coordinates coordinates){
+        entity.setCoordinates(coordinates);
         cells.put(coordinates, entity);
     }
 
