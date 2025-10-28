@@ -7,7 +7,7 @@ import com.security.map.MapConsoleRenderer;
 
 public class Main {
     public static void main(String[] args) {
-        Map map = new Map(15,15);
+        Map map = new Map(45,45);
 
         map.putEntity(new Predator(), new Coordinates(1, 2));
         map.putEntity(new Predator(), new Coordinates(9, 13));

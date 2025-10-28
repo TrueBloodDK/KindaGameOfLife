@@ -10,6 +10,11 @@ public class Map {
     private final int MAX_X;
     private final int MAX_Y;
     HashMap<Coordinates, Entity> cells = new HashMap<>();
+    private int step = 0;
+
+    public void nextStep(){
+        step++;
+    }
 
     public Map(int x, int y) {
         MAX_X = x;
@@ -19,6 +24,10 @@ public class Map {
     public void putEntity(Entity entity, Coordinates coordinates){
         entity.setCoordinates(coordinates);
         cells.put(coordinates, entity);
+    }
+
+    public void removeEntity(Coordinates coordinates){
+        cells.remove(coordinates);
     }
 
     public boolean cellIsEmpty(Coordinates coordinates){
