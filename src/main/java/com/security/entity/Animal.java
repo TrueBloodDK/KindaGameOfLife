@@ -5,6 +5,8 @@ import com.security.map.Map;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 abstract public class Animal extends Entity {
@@ -20,16 +22,27 @@ abstract public class Animal extends Entity {
 
     public abstract void makeMove(Map map);
 
-    protected boolean tryMove(Map map, Direction direction){
-        Coordinates currentPos = getCoordinates();
-        Coordinates newPos = currentPos.shift(direction);
+    protected void moveInDirection(Map map, Direction direction) {
+        Coordinates newPosition = getCoordinates().shift(direction);
 
-        if (map.isWithinBounds(newPos) && map.isCellEmpty(newPos)) {
-            map.removeEntity(currentPos);
-            map.putEntity(this, newPos);
-            return true;
+        if (map.isWithinBounds(newPosition) && map.isCellEmpty(newPosition)) {
+            map.removeEntity(getCoordinates());
+            map.putEntity(this, newPosition);
         }
-        return false;
+    }
+
+    protected void tryRandomMove(Map map) {
+        List<Direction> directions = Arrays.asList(Direction.values());
+        Collections.shuffle(directions);
+
+        for (Direction direction : directions) {
+            Coordinates newPosition = getCoordinates().shift(direction);
+            if (map.isWithinBounds(newPosition) && map.isCellEmpty(newPosition)) {
+                map.removeEntity(getCoordinates());
+                map.putEntity(this, newPosition);
+                break;
+            }
+        }
     }
 
     protected Direction findDirectionToTarget(Map map, Class<? extends Entity> targetType) {
@@ -44,7 +57,7 @@ abstract public class Animal extends Entity {
         return calculateDirection(currentPos, closestTarget.getCoordinates());
     }
 
-    private Entity findClosestEntity(Coordinates from, List<Entity> entities) {
+    protected Entity findClosestEntity(Coordinates from, List<Entity> entities) {
         Entity closest = entities.get(0);
         double minDistance = Double.MAX_VALUE;
 
@@ -58,11 +71,11 @@ abstract public class Animal extends Entity {
         return closest;
     }
 
-    private double calculateDistance(Coordinates a, Coordinates b) {
+    protected double calculateDistance(Coordinates a, Coordinates b) {
         return Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
     }
 
-    private Direction calculateDirection(Coordinates from, Coordinates to) {
+    protected Direction calculateDirection(Coordinates from, Coordinates to) {
         int dx = to.getX() - from.getX();
         int dy = to.getY() - from.getY();
 
@@ -73,12 +86,12 @@ abstract public class Animal extends Entity {
         }
     }
 
-    private Direction getRandomDirection() {
+    protected Direction getRandomDirection() {
         Direction[] directions = Direction.values();
         return directions[(int) (Math.random() * directions.length)];
     }
 
-    public boolean isDead(){
+    protected boolean isDead(){
         return hp <= 0;
     }
 }
