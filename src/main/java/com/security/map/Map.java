@@ -4,6 +4,8 @@ import com.security.entity.Entity;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 public class Map {
@@ -30,11 +32,22 @@ public class Map {
         cells.remove(coordinates);
     }
 
-    public boolean cellIsEmpty(Coordinates coordinates){
+    public boolean isCellEmpty(Coordinates coordinates){
         return !cells.containsKey(coordinates);
     }
 
     public Entity getEntity(Coordinates coordinates){
         return cells.get(coordinates);
+    }
+
+    public List<Entity> getEntitiesOfType(Class<? extends Entity> type) {
+        return cells.values().stream()
+                .filter(type::isInstance)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isWithinBounds(Coordinates coord) {
+        return coord.getX() >= 0 && coord.getX() < MAX_X &&
+                coord.getY() >= 0 && coord.getY() < MAX_Y;
     }
 }

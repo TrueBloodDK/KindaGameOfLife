@@ -10,7 +10,7 @@ public class MapConsoleRenderer {
         for (int y = 0; y < map.getMAX_Y(); y++) {
             for (int x = 0; x < map.getMAX_X(); x++) {
                 Coordinates coordinates = new Coordinates(x, y);
-                if (map.cellIsEmpty(coordinates))
+                if (map.isCellEmpty(coordinates))
                     sb.append("__");
                 else
                     sb.append(chooseSpriteForEntity(map.getEntity(coordinates)));
